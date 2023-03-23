@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" th:href="@{/icon/PialedaLOGOcircle.png}"/>
+  <title>Pialeda</title>
+
+  <!-- Bootstrap css -->
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+  <!-- Font awesome local -->
+  <script th:src="@{/fontawesome/2302251f1c.js}" crossorigin="anonymous"></script>
+<!--  custom css for header-->
+<!--  <link rel="stylesheet" type="text/css" th:href="@{/custom-css/marketing/or-header.css}">-->
+  <!--custom css for vr-->
+  <link rel="stylesheet" type="text/css" th:href="@{/custom-css/marketing/or-style.css}">
+<!--  <link rel="stylesheet" th:href="@{/custom-css/marketing/or-print.css}" media="print">-->
+
+</head>
+<body class="body">
+<div class="main-con">
+  <!--Header starts-->
+<!--  <div class="header-con">-->
+<!--    <div class="left-con">-->
+<!--      <div id="bx1">-->
+<!--        <img id="h-logo" th:src="@{/icon/LOGO.png}" alt="Logo">-->
+<!--      </div>-->
+<!--      <div id="bx2">-->
+<!--        <label id="logo-name">PIALEDA</label>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="right-con">-->
+<!--  <div>-->
+<!--    <i class="fa-solid fa-user"></i>-->
+<!--    <a class="m-2" ><span th:text="${session.name}"></span></a>-->
+<!--    <a href="#" class="" data-toggle="modal" data-target="#logoutModal">-->
+<!--      <i class="fas fa-sign-out-alt"></i>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="main-con2">
+    <form method="POST" th:action="@{/createOfficialReceipt}" th:object="${officialReceiptInfo}">
+    <div class="officialReceipt-con" id="print-content">
+        <div class="row-1">
+          <table border=1>
+            <tr>
+              <td colspan="3" style="text-align: center;">IN SETTLEMENT OF THE FOLLOWING:</td>
+            </tr>
+            <tr>
+              <td colspan="1" style="text-align: center;">INVOICE NO.</td>
+              <td id="amt" colspan="2" style="text-align: center;">AMOUNT</td>
+            </tr>
+            <tr>
+              <td class="amt-r1"><input th:field="*{invoiceNum1}" required></td>
+              <td class="amt-r1"><input  type="number" th:field="*{invoiceAmount1}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input ></td>
+            </tr>
+            <tr>
+              <td><input th:field="*{invoiceNum2}"></td>
+              <td class="amt-r1"><input  type="number" th:field="*{invoiceAmount2}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td><input th:field="*{invoiceNum3}"></td>
+              <td class="amt-r1"><input  type="number" th:field="*{invoiceAmount3}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td><input th:field="*{invoiceNum4}"></td>
+              <td class="amt-r1"><input  type="number" th:field="*{invoiceAmount4}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td style="font-size: 9px;">Total Sales (VAT inclusive)</td>
+              <td><input  type="number" th:field="*{totalSalesVat}"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>Less: VAT</td>
+              <td><input type="number" th:field="*{lessVat}"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td><input  type="number" th:field="*{total}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td style="font-size: 9px;">Less: Withholding Tax</td>
+              <td><input type="number" th:field="*{lessWithHoldTax}"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>Amount Due</td>
+              <td><input  type="number" th:field="*{amountDue}" class="myNumber"  onchange="formatNumbers()" style="color:red; font-weight: bolder;"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td style="padding: 5px;"></td>
+              <td></td>
+              <td class="amt-r3"></td>
+            </tr>
+            <tr>
+              <td>VaTable Sales</td>
+              <td><input type="number" th:field="*{vatableSales}"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>VAT-Exempt Sales</td>
+              <td><input type="number" th:field="*{vatExemptSales}"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>Zero Rated Sales</td>
+              <td><input type="number" th:field="*{zeroRatedSales}"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>VAT Amount</td>
+              <td><input  type="number" th:field="*{vatAmount}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td>Total Sales</td>
+              <td><input  type="number" th:field="*{totalSales}" class="myNumber"  onchange="formatNumbers()"></td>
+              <td class="amt-r3"><input></td>
+            </tr>
+            <tr>
+              <td colspan="3" style="text-align: center;">PAYMENT IN FROM OF</td>
+            </tr>
+            <tr>
+              <td>CASH</td>
+              <td colspan="2"><input type="number" th:field="*{cash}" class="myNumber"  onchange="formatNumbers()"></td>
+
+            </tr>
+            <tr>
+              <td>CHECK/NO.</td>
+              <td colspan="2"><input type="number" th:field="*{checkNo}"></td>
+            </tr>
+            <tr>
+              <td>AMOUNT</td>
+              <td colspan="2" style="display: flex; border:0;">₱<input  type="number" th:field="*{amount}" class="myNumber"  onchange="formatNumbers()" style="color:red; font-weight: bolder;"></td>
+            </tr>
+          </table>
+        </div>
+
+
+        <div class="row-2">
+          <div class="r2-header">
+            <div class="d-flex align-items-center hstyle" style="justify-content: space-between;">
+              <h2 id="logo-suppName" class="mt-2 mx-4" contenteditable="true" style="font-size: 10px; width: 10%; font-weight: bolder; font-style: italic;">SUPPLIER NAME</h2>
+              <div id="supp-details">
+                <!-- Supplier Name-->
+<!--                <h5 id="supp-name" class="mt-2 mx-4" contenteditable="true">SUPPLIER NAME</h5>-->
+                <input type="text"  class="h-input" th:field="*{supplierName}" id="supp-name"  placeholder="SUPPLIER NAME">
+
+                <!-- Supplier Address-->
+<!--                <span id="supp-addrs">Supplier address and city address</span>-->
+                <input type="text" class="h-input" th:field="*{supplierAddress}" id="supp-addrs" placeholder="SUPPLIER Address and City">
+
+                <!-- Supplier TIN-->
+<!--                <span id="supp-tin" >Supplier TIN</span>-->
+                <input type="text" class="h-input" th:field="*{supplierTin}" id="supp-tin" placeholder="SUPPLIER TIN">
+              </div>
+              <div style="font-weight: bolder;">
+                <div id="s-invo-con">
+                  <label id="or-number" style="width: 150px; color:red;" th:text="${generateORNumber}"></label>
+                  <input type="hidden" name="orNumber" id="invoice-number-input" th:value="${generateORNumber}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="r2-body">
+            <div id="hdate" class="con"><h5>OFFICIAL RECEIPT</h5> <div><label>Date</label><input type="date" th:field="*{officialReceiptDate}"></div></div>
+            <div class="con"><label >Received from</label><input id="inp-1" th:field="*{recvFrom}" required></div>
+            <div class="con"><label>and Address at</label><input th:field="*{clientAddress}" required></div>
+            <div class="con"><label>with TIN</label><input th:field="*{clientTin}"><label>engaged in the</label></div>
+            <div class="con"><label>Bus. Style of from</label><input th:field="*{clientBus}"><label>,the sum of</label></div>
+            <div class="con"><input th:field="*{clientSumOf}" ><label>Pesos</label></div>
+            <div class="con"><label>(₱<input type="number" th:field="*{clientPayment}" id="myNumber" name="myNumber" step="0.01" style="color: red;" onchange="formatNumber()">) in full/partial payment for</label> <input th:field="*{partialPaymentFor}"></div>
+          </div>
+          <div class="r2-footer">
+              <input type="text"  id="cashier-name-input" th:field="*{cashierName}">
+              <label style="font-size: 10px; margin-right: 25px; text-align: center;">Cashier/Authorized Representative</label>
+          </div>
+        </div>
+    </div>
+    <div class="officialReceipt-btn">
+      <button class="btn btn-success">Create OR</button>
+      <a class="btn btn-danger" style="color: white;" th:href="@{marketing-invoice}">back</a>
+    </div>
+    </form>
+  </div>
+
+</div>
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel">Logout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to logout?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a type="button" class="btn" href="/logout" style="background-color: #003D2B; color: white;">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JavaScript -->
+<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{/custom-js/marketing/marketing-main.js}"></script>-->
+<script>
+<!--let invCount = document.getElementById("invCount").value;-->
+<!--alert("There are " + invCount + " invoices.");-->
+function formatNumber() {
+  let input = document.getElementById("myNumber");
+  let num = parseFloat(input.value);
+  if (!isNaN(num)) {
+<!--    input.value = num.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 });-->
+    input.value =  num.toFixed(2);
+  }
+}
+
+function formatNumbers() {
+  let inputs = document.getElementsByClassName("myNumber");
+  for (let i = 0; i < inputs.length; i++) {
+    let num = parseFloat(inputs[i].value);
+    if (!isNaN(num)) {
+<!--      inputs[i].value = num.toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 2 });-->
+inputs[i].value =  num.toFixed(2);
+    }
+  }
+}
+</script>
+</body>
+</html>
